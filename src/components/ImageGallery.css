@@ -62,5 +62,20 @@ body {
 }
 
 .img-container li:hover {
-  opacity: 0.5;
+  opacity: 0.4;
+}
+
+/* Show the checkbox when input is checked */
+.image-container input[type="checkbox"]:checked {
+  display: block;
+}
+
+/* Hide the checkbox by default */
+.image-container input[type="checkbox"] {
+  display: none;
+}
+
+/* Show the checkbox when hovering over the image container */
+.image-container:hover input[type="checkbox"] {
+  display: block;
 }
