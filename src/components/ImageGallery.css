@@ -43,6 +43,8 @@ body {
   top: 5px; /* Adjust the top position as needed */
   left: 5px; /* Adjust the left position as needed */
   z-index: 1; /* Place it on top of the image */
+  transform: scale(1.5); /* Increase the size of the checkbox */
+  cursor: pointer; /* Add pointer cursor to the checkbox */
 }
 
 .img-container img {
