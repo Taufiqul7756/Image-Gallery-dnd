@@ -39,6 +39,12 @@ function ImageGallery({ images }) {
 
   const deleteSelectedImages = () => {
     setImageOrder((prevImageOrder) => {
+      const deletedImageIds = prevImageOrder.filter((imageId) =>
+        selectedImages.includes(imageId)
+      );
+
+      console.log("Deleted Image IDs:", deletedImageIds);
+
       const updatedOrder = prevImageOrder.filter(
         (imageId) => !selectedImages.includes(imageId)
       );

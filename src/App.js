@@ -1,7 +1,7 @@
 import "./App.css";
 import ImageGallery from "./components/ImageGallery";
 
-function App() {
+const App = () => {
   const images = [
     { id: 1, image: "https://i.ibb.co/8m4XDPK/image-1.webp" },
     { id: 2, image: "https://i.ibb.co/wcVnv6r/image-2.webp" },
@@ -21,6 +21,6 @@ function App() {
       <ImageGallery images={images} />
     </>
   );
-}
+};
 
 export default App;
