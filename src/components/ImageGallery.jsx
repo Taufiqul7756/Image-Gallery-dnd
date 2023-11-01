@@ -8,8 +8,6 @@ function ImageGallery({ images }) {
     images.map((image, index) => `${image.id}`)
   );
 
-  console.log("Imahaaaaaa", images);
-
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -20,14 +18,21 @@ function ImageGallery({ images }) {
     setImageOrder(reorderedImages);
   };
 
-  const toggleImageSelection = (image) => {
+  const toggleImageSelection = (event, imageId) => {
+    const isChecked = event.target.checked;
+    console.log(`Image ${imageId} isChecked: ${isChecked}`);
+
     setSelectedImages((prevSelectedImages) => {
-      if (prevSelectedImages.includes(image)) {
-        return prevSelectedImages.filter(
-          (selectedImage) => selectedImage !== image
-        );
+      if (isChecked) {
+        console.log(`Selecting Image ${imageId}`);
+        return [...prevSelectedImages, imageId];
       } else {
-        return [...prevSelectedImages, image];
+        console.log(`Deselecting Image ${imageId}`);
+        const updatedSelection = prevSelectedImages.filter(
+          (selectedImage) => selectedImage !== imageId
+        );
+        console.log(`Updated Selection:`, updatedSelection);
+        return updatedSelection;
       }
     });
   };
@@ -45,8 +50,8 @@ function ImageGallery({ images }) {
   return (
     <div>
       <div className="upper-container">
-        <span>{selectedImages.length} Files Selected</span>
-        <button onClick={deleteSelectedImages}>Delete Selected Images</button>
+        <h3>{selectedImages.length} Files Selected</h3>
+        <h4 onClick={deleteSelectedImages}>Delete Files</h4>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="gallery">
@@ -60,22 +65,34 @@ function ImageGallery({ images }) {
                 const image = images.find(
                   (img) => img.id === parseInt(imageId, 10)
                 );
+                const isChecked = selectedImages.includes(imageId);
+
                 return (
-                  <Draggable key={imageId} draggableId={imageId} index={index}>
+                  <Draggable
+                    key={imageId}
+                    draggableId={imageId.toString()}
+                    index={index}
+                  >
                     {(provided) => (
                       <li
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <img
-                          src={image.image}
-                          alt={image.image}
-                          className={
-                            selectedImages.includes(imageId) ? "selected" : ""
-                          }
-                          onClick={() => toggleImageSelection(imageId)}
-                        />
+                        <div className="image-container">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={(event) =>
+                              toggleImageSelection(event, imageId)
+                            }
+                          />
+                          <img
+                            src={image.image}
+                            alt={image.image}
+                            className={isChecked ? "selected" : ""}
+                          />
+                        </div>
                       </li>
                     )}
                   </Draggable>

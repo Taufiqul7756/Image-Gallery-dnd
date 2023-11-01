@@ -2,6 +2,9 @@ body {
   padding: 20px;
   border: 2px solid black;
   margin: 20px;
+  /* width: 800px;
+  height: 800px; */
+  box-sizing: border-box;
 }
 
 .selected {
@@ -15,12 +18,26 @@ body {
   align-items: center;
 }
 
+.upper-container h4 {
+  color: rgb(214, 36, 36);
+  cursor: pointer;
+}
+
 .img-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Four images in each row */
   gap: 10px; /* Adjust the gap as needed */
   list-style: none;
   padding: 0;
+}
+.image-container {
+  position: relative;
+}
+
+.image-container input[type="checkbox"] {
+  position: absolute;
+  top: 5px; /* Adjust the top position as needed */
+  left: 5px; /* Adjust the left position as needed */
 }
 
 .img-container img {
