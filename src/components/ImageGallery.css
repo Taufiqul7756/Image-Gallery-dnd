@@ -2,8 +2,6 @@ body {
   padding: 20px;
   border: 2px solid black;
   margin: 20px;
-  /* width: 800px;
-  height: 800px; */
   box-sizing: border-box;
 }
 
@@ -11,6 +9,7 @@ body {
   border: 2px solid red;
   opacity: 0.6;
 }
+
 .upper-container {
   margin: 10px;
   display: flex;
@@ -25,19 +24,25 @@ body {
 
 .img-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Four images in each row */
-  gap: 10px; /* Adjust the gap as needed */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   list-style: none;
   padding: 0;
-}
-.image-container {
   position: relative;
 }
 
+.image-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+/* Style the checkbox */
 .image-container input[type="checkbox"] {
   position: absolute;
   top: 5px; /* Adjust the top position as needed */
   left: 5px; /* Adjust the left position as needed */
+  z-index: 1; /* Place it on top of the image */
 }
 
 .img-container img {
@@ -50,7 +55,7 @@ body {
 }
 
 .img-container li {
-  padding-bottom: 10%; /* Maintain a square aspect ratio */
+  padding-bottom: 10%;
   position: relative;
 }
 
