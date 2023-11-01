@@ -1,0 +1,42 @@
+body {
+  padding: 20px;
+  border: 2px solid black;
+  margin: 20px;
+}
+
+.selected {
+  border: 2px solid red;
+  opacity: 0.6;
+}
+.upper-container {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.img-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four images in each row */
+  gap: 10px; /* Adjust the gap as needed */
+  list-style: none;
+  padding: 0;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.img-container li {
+  padding-bottom: 10%; /* Maintain a square aspect ratio */
+  position: relative;
+}
+
+.img-container li:hover {
+  opacity: 0.5;
+}
