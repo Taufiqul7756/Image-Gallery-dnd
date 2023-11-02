@@ -1,8 +1,8 @@
 body {
-  padding: 20px;
   border: 2px solid black;
   margin: 20px;
   box-sizing: border-box;
+  padding: 20px;
 }
 
 .selected {
@@ -78,4 +78,16 @@ body {
 /* Show the checkbox when hovering over the image container */
 .image-container:hover input[type="checkbox"] {
   display: block;
+}
+
+@media screen and (max-width: 900px) {
+  .img-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .img-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
