@@ -1,7 +1,7 @@
 body {
   border: 2px solid black;
   margin: 20px;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   padding: 20px;
 }
 
@@ -78,6 +78,11 @@ body {
 /* Show the checkbox when hovering over the image container */
 .image-container:hover input[type="checkbox"] {
   display: block;
+}
+
+.first-image {
+  grid-column: span 2; /* Make the first image span 2 columns */
+  grid-row: span 2; /* Make the first image span 2 rows */
 }
 
 @media screen and (max-width: 900px) {

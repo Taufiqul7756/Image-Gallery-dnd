@@ -84,6 +84,7 @@ function ImageGallery({ images }) {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
+                        className={index === 0 ? "first-image" : ""} // Add the class conditionally
                       >
                         <div className="image-container">
                           <input
