@@ -56,7 +56,20 @@ function ImageGallery({ images }) {
   return (
     <div>
       <div className="upper-container">
-        <h3>{selectedImages.length} Files Selected</h3>
+        <h3>
+          {" "}
+          <input
+            className="checkbox"
+            type="checkbox"
+            checked={selectedImages.length > 0}
+            onChange={() => {
+              // Toggle the selection status of all images based on the checkbox
+              const selectAll = selectedImages.length === 0;
+              setSelectedImages(selectAll ? imageOrder : []);
+            }}
+          />{" "}
+          {selectedImages.length} Files Selected
+        </h3>
         <h4 onClick={deleteSelectedImages}>Delete Files</h4>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>

@@ -7,7 +7,7 @@ body {
 
 .selected {
   border: 2px solid red;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .upper-container {
@@ -46,6 +46,9 @@ body {
   transform: scale(1.5); /* Increase the size of the checkbox */
   cursor: pointer; /* Add pointer cursor to the checkbox */
 }
+.checkbox {
+  transform: scale(1.5);
+}
 
 .img-container img {
   width: 100%;
@@ -56,12 +59,15 @@ body {
   border: 1px solid gray;
 }
 
-.img-container li {
+/* .img-container li {
   padding-bottom: 10%;
   position: relative;
-}
+} */
 
-.img-container li:hover {
+/* .img-container li:hover {
+  opacity: 0.4;
+} */
+.img-container img:hover {
   opacity: 0.4;
 }
 
