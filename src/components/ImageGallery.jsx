@@ -7,12 +7,15 @@ function ImageGallery({ images }) {
   const [imageOrder, setImageOrder] = useState(
     images.map((image, index) => `${image.id}`)
   );
+  const [popupMessage, setPopupMessage] = useState(null);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
     const reorderedImages = Array.from(imageOrder);
     const [reorderedItem] = reorderedImages.splice(result.source.index, 1);
+
+    // Insert the dragged item at the correct position based on the destination index
     reorderedImages.splice(result.destination.index, 0, reorderedItem);
 
     setImageOrder(reorderedImages);
@@ -37,6 +40,31 @@ function ImageGallery({ images }) {
     });
   };
 
+  const showPopup = (message) => {
+    setPopupMessage(message);
+
+    setTimeout(() => {
+      setPopupMessage(null);
+    }, 3000); // Display the popup for 3 seconds
+    console.log("Popup message set:", message);
+  };
+
+  // const deleteSelectedImages = () => {
+  //   setImageOrder((prevImageOrder) => {
+  //     const deletedImageIds = prevImageOrder.filter((imageId) =>
+  //       selectedImages.includes(imageId)
+  //     );
+
+  //     console.log("Deleted Image IDs:", deletedImageIds);
+
+  //     const updatedOrder = prevImageOrder.filter(
+  //       (imageId) => !selectedImages.includes(imageId)
+  //     );
+  //     setSelectedImages([]);
+  //     return updatedOrder;
+  //   });
+  // };
+
   const deleteSelectedImages = () => {
     setImageOrder((prevImageOrder) => {
       const deletedImageIds = prevImageOrder.filter((imageId) =>
@@ -49,12 +77,17 @@ function ImageGallery({ images }) {
         (imageId) => !selectedImages.includes(imageId)
       );
       setSelectedImages([]);
+
+      const message = `${deletedImageIds.length} files deleted`;
+      showPopup(message);
+
       return updatedOrder;
     });
   };
 
   return (
     <div>
+      {popupMessage && <div className="popup">{popupMessage}</div>}
       <div className="upper-container">
         <h3>
           {" "}
@@ -70,6 +103,7 @@ function ImageGallery({ images }) {
           />{" "}
           {selectedImages.length} Files Selected
         </h3>
+
         <h4 onClick={deleteSelectedImages}>Delete Files</h4>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
