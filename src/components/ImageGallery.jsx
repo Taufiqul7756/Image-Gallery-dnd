@@ -96,86 +96,89 @@ function ImageGallery({ images }) {
   };
 
   return (
-    <div>
-      {/* popup code */}
-      {popupMessage && <div className="popup">{popupMessage}</div>}
-      <div className="upper-container">
-        {showGalleryText ? (
-          <h2>Gallery</h2>
-        ) : (
-          <div className="delete-text">
-            <h3>
-              {" "}
-              <input
-                className="checkbox"
-                type="checkbox"
-                checked={selectedImages.length > 0}
-                onChange={() => {
-                  // Toggle the selection status of all images based on the checkbox
-                  const selectAll = selectedImages.length === 0;
-                  setSelectedImages(selectAll ? imageOrder : []);
-                }}
-              />{" "}
-              {selectedImages.length} Files Selected
-            </h3>
-            <h4 onClick={deleteSelectedImages}>Delete Files</h4>
-          </div>
-        )}
-      </div>
-      <hr />
-
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="gallery">
-          {(provided) => (
-            <ul
-              className="img-container"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {imageOrder.map((imageId, index) => {
-                const image = images.find(
-                  (img) => img.id === parseInt(imageId, 10)
-                );
-                const isChecked = selectedImages.includes(imageId);
-
-                return (
-                  <Draggable
-                    key={imageId}
-                    draggableId={imageId.toString()}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <li
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className={index === 0 ? "first-image" : ""} // Add the class conditionally
-                      >
-                        <div className="image-container">
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={(event) =>
-                              toggleImageSelection(event, imageId)
-                            }
-                          />
-                          <img
-                            src={image.image}
-                            alt={image.image}
-                            className={isChecked ? "selected" : ""}
-                          />
-                        </div>
-                      </li>
-                    )}
-                  </Draggable>
-                );
-              })}
-              {provided.placeholder}
-            </ul>
+    <>
+      <div className="container">
+        <div className="upper-container">
+          {showGalleryText ? (
+            <h2 className="gallery-text">Gallery</h2>
+          ) : (
+            <div className="delete-text">
+              <h3>
+                {" "}
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={selectedImages.length > 0}
+                  onChange={() => {
+                    // Toggle the selection status of all images based on the checkbox
+                    const selectAll = selectedImages.length === 0;
+                    setSelectedImages(selectAll ? imageOrder : []);
+                  }}
+                />{" "}
+                {selectedImages.length} Files Selected
+              </h3>
+              <h4 onClick={deleteSelectedImages}>Delete Files</h4>
+            </div>
           )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+        </div>
+        <hr />
+        <div className="lower-container">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable type="ROW" droppableId="gallery">
+              {(provided) => (
+                <ul
+                  className="img-container"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {imageOrder.map((imageId, index) => {
+                    const image = images.find(
+                      (img) => img.id === parseInt(imageId, 10)
+                    );
+                    const isChecked = selectedImages.includes(imageId);
+
+                    return (
+                      <Draggable
+                        key={imageId}
+                        draggableId={imageId.toString()}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <li
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className={index === 0 ? "first-image" : ""} // Add the class conditionally
+                          >
+                            <div className="image-container">
+                              <input
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={(event) =>
+                                  toggleImageSelection(event, imageId)
+                                }
+                              />
+                              <img
+                                src={image.image}
+                                alt={image.image}
+                                className={isChecked ? "selected" : ""}
+                              />
+                            </div>
+                          </li>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
+          {/* popup code */}
+          {popupMessage && <div className="popup">{popupMessage}</div>}
+        </div>
+      </div>
+    </>
   );
 }
 

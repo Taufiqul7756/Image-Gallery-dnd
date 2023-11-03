@@ -1,13 +1,21 @@
 body {
-  border: 2px solid black;
-  margin: 20px;
-  /* box-sizing: border-box; */
-  padding: 20px;
+  margin: 0;
+  padding: 64px;
+}
+
+.container {
+  /* padding: 10px; */
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .selected {
-  border: 2px solid red;
   opacity: 0.5;
+  filter: brightness(1) !important;
+}
+
+.gallery-text {
+  margin-left: 36px;
 }
 
 .upper-container .delete-text {
@@ -20,13 +28,20 @@ body {
   color: rgb(214, 36, 36);
   cursor: pointer;
 }
-.upper-container h2 {
+/* .upper-container h2 {
   cursor: pointer;
+} */
+
+.lower-container {
+  /* border: 1px solid black; */
+  /* box-shadow: 5px 5px; */
+  margin: 20px;
+  padding: 16px;
 }
 
 .img-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   list-style: none;
   padding: 0;
@@ -70,7 +85,7 @@ body {
   opacity: 0.4;
 } */
 .img-container img:hover {
-  opacity: 0.4;
+  filter: brightness(0.6);
 }
 
 /* Show the checkbox when input is checked */
