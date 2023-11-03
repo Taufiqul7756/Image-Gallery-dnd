@@ -8,6 +8,7 @@ function ImageGallery({ images }) {
     images.map((image, index) => `${image.id}`)
   );
   const [popupMessage, setPopupMessage] = useState(null);
+  const [showGalleryText, setShowGalleryText] = useState(true);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -21,6 +22,25 @@ function ImageGallery({ images }) {
     setImageOrder(reorderedImages);
   };
 
+  // const toggleImageSelection = (event, imageId) => {
+  //   const isChecked = event.target.checked;
+  //   console.log(`Image ${imageId} isChecked: ${isChecked}`);
+
+  //   setSelectedImages((prevSelectedImages) => {
+  //     if (isChecked) {
+  //       console.log(`Selecting Image ${imageId}`);
+  //       return [...prevSelectedImages, imageId];
+  //     } else {
+  //       console.log(`Deselecting Image ${imageId}`);
+  //       const updatedSelection = prevSelectedImages.filter(
+  //         (selectedImage) => selectedImage !== imageId
+  //       );
+  //       console.log(`Updated Selection:`, updatedSelection);
+  //       return updatedSelection;
+  //     }
+  //   });
+  // };
+
   const toggleImageSelection = (event, imageId) => {
     const isChecked = event.target.checked;
     console.log(`Image ${imageId} isChecked: ${isChecked}`);
@@ -28,6 +48,7 @@ function ImageGallery({ images }) {
     setSelectedImages((prevSelectedImages) => {
       if (isChecked) {
         console.log(`Selecting Image ${imageId}`);
+        setShowGalleryText(false); // Hide the "Gallery" text
         return [...prevSelectedImages, imageId];
       } else {
         console.log(`Deselecting Image ${imageId}`);
@@ -45,27 +66,16 @@ function ImageGallery({ images }) {
 
     setTimeout(() => {
       setPopupMessage(null);
-    }, 3000); // Display the popup for 3 seconds
+    }, 2000); // Display the popup for 3 seconds
     console.log("Popup message set:", message);
   };
 
-  // const deleteSelectedImages = () => {
-  //   setImageOrder((prevImageOrder) => {
-  //     const deletedImageIds = prevImageOrder.filter((imageId) =>
-  //       selectedImages.includes(imageId)
-  //     );
-
-  //     console.log("Deleted Image IDs:", deletedImageIds);
-
-  //     const updatedOrder = prevImageOrder.filter(
-  //       (imageId) => !selectedImages.includes(imageId)
-  //     );
-  //     setSelectedImages([]);
-  //     return updatedOrder;
-  //   });
-  // };
-
   const deleteSelectedImages = () => {
+    if (selectedImages.length === 0) {
+      showPopup("Select at least one image");
+      return;
+    }
+
     setImageOrder((prevImageOrder) => {
       const deletedImageIds = prevImageOrder.filter((imageId) =>
         selectedImages.includes(imageId)
@@ -87,25 +97,33 @@ function ImageGallery({ images }) {
 
   return (
     <div>
+      {/* popup code */}
       {popupMessage && <div className="popup">{popupMessage}</div>}
       <div className="upper-container">
-        <h3>
-          {" "}
-          <input
-            className="checkbox"
-            type="checkbox"
-            checked={selectedImages.length > 0}
-            onChange={() => {
-              // Toggle the selection status of all images based on the checkbox
-              const selectAll = selectedImages.length === 0;
-              setSelectedImages(selectAll ? imageOrder : []);
-            }}
-          />{" "}
-          {selectedImages.length} Files Selected
-        </h3>
-
-        <h4 onClick={deleteSelectedImages}>Delete Files</h4>
+        {showGalleryText ? (
+          <h2>Gallery</h2>
+        ) : (
+          <div className="delete-text">
+            <h3>
+              {" "}
+              <input
+                className="checkbox"
+                type="checkbox"
+                checked={selectedImages.length > 0}
+                onChange={() => {
+                  // Toggle the selection status of all images based on the checkbox
+                  const selectAll = selectedImages.length === 0;
+                  setSelectedImages(selectAll ? imageOrder : []);
+                }}
+              />{" "}
+              {selectedImages.length} Files Selected
+            </h3>
+            <h4 onClick={deleteSelectedImages}>Delete Files</h4>
+          </div>
+        )}
       </div>
+      <hr />
+
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="gallery">
           {(provided) => (

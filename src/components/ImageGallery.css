@@ -10,8 +10,7 @@ body {
   opacity: 0.5;
 }
 
-.upper-container {
-  margin: 10px;
+.upper-container .delete-text {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,6 +18,9 @@ body {
 
 .upper-container h4 {
   color: rgb(214, 36, 36);
+  cursor: pointer;
+}
+.upper-container h2 {
   cursor: pointer;
 }
 
@@ -92,8 +94,8 @@ body {
 }
 .popup {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 25px;
+  right: 25px;
   background-color: green;
   color: white;
   padding: 10px;
