@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./ImageGallery.css";
 
-function ImageGallery({ images }) {
+function ImageGallery({ images, addImages }) {
   const [selectedImages, setSelectedImages] = useState([]);
   const [imageOrder, setImageOrder] = useState(
     images.map((image, index) => `${image.id}`)
@@ -21,25 +21,6 @@ function ImageGallery({ images }) {
 
     setImageOrder(reorderedImages);
   };
-
-  // const toggleImageSelection = (event, imageId) => {
-  //   const isChecked = event.target.checked;
-  //   console.log(`Image ${imageId} isChecked: ${isChecked}`);
-
-  //   setSelectedImages((prevSelectedImages) => {
-  //     if (isChecked) {
-  //       console.log(`Selecting Image ${imageId}`);
-  //       return [...prevSelectedImages, imageId];
-  //     } else {
-  //       console.log(`Deselecting Image ${imageId}`);
-  //       const updatedSelection = prevSelectedImages.filter(
-  //         (selectedImage) => selectedImage !== imageId
-  //       );
-  //       console.log(`Updated Selection:`, updatedSelection);
-  //       return updatedSelection;
-  //     }
-  //   });
-  // };
 
   const toggleImageSelection = (event, imageId) => {
     const isChecked = event.target.checked;
@@ -66,7 +47,7 @@ function ImageGallery({ images }) {
 
     setTimeout(() => {
       setPopupMessage(null);
-    }, 2000); // Display the popup for 3 seconds
+    }, 2000);
     console.log("Popup message set:", message);
   };
 
@@ -170,10 +151,16 @@ function ImageGallery({ images }) {
                     );
                   })}
                   {provided.placeholder}
+                  <img
+                    className="addImage"
+                    src={addImages[0].image}
+                    alt="Add "
+                  />
                 </ul>
               )}
             </Droppable>
           </DragDropContext>
+
           {/* popup code */}
           {popupMessage && <div className="popup">{popupMessage}</div>}
         </div>

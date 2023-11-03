@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import ImageGallery from "./components/ImageGallery";
 
@@ -14,11 +15,18 @@ const App = () => {
     { id: 9, image: "https://i.ibb.co/kxZhRkw/image-9.webp" },
     { id: 10, image: "https://i.ibb.co/DpqQcPX/image-10.jpg" },
     { id: 11, image: "https://i.ibb.co/0DM4B4q/image-11.jpg" },
+    // { id: 12, image: "https://i.ibb.co/tX6Yr10/add-image.webp" },
+  ];
+
+  const addImages = [
+    {
+      image: "https://i.ibb.co/tX6Yr10/add-image.webp",
+    },
   ];
 
   return (
     <>
-      <ImageGallery images={images} />
+      <ImageGallery images={images} addImages={addImages} />
     </>
   );
 };

@@ -1,12 +1,14 @@
 body {
   margin: 0;
   padding: 64px;
+  background: #ebeff5;
 }
 
 .container {
   /* padding: 10px; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 5px;
+  background: #ffffff;
 }
 
 .selected {
@@ -22,6 +24,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 40px 0 40px;
 }
 
 .upper-container h4 {
@@ -52,6 +55,10 @@ body {
   position: relative;
   width: 100%;
   height: auto;
+}
+
+.addImage {
+  cursor: pointer;
 }
 
 /* Style the checkbox */
@@ -104,8 +111,8 @@ body {
 }
 
 .first-image {
-  grid-column: span 2; /* Make the first image span 2 columns */
-  grid-row: span 2; /* Make the first image span 2 rows */
+  grid-column: span 2;
+  grid-row: span 2;
 }
 .popup {
   position: fixed;
@@ -117,7 +124,7 @@ body {
   border-radius: 5px;
   z-index: 999;
   transition: opacity 0.3s;
-  opacity: 1; /* Set an initial opacity of 1 */
+  opacity: 1;
 }
 
 @media screen and (max-width: 900px) {
