@@ -10,9 +10,11 @@ const App = () => {
     },
   ];
 
+  const featured = [{ id: 1, image: "https://i.ibb.co/8m4XDPK/image-1.webp" }];
+
   return (
     <>
-      <ImageGallery images={data} addImages={addImages} />
+      <ImageGallery images={data} addImages={addImages} featured={featured} />
     </>
   );
 };
