@@ -9,7 +9,7 @@ import {
 } from "react-grid-dnd";
 import "./ImageGallery.css";
 
-const ImageGalleryNew = ({ images, addImages }) => {
+const ImageGalleryNew = ({ images, addImages, featured }) => {
   const [items, setItems] = useState(images);
 
   const [showGalleryText, setShowGalleryText] = useState(true);
@@ -81,8 +81,8 @@ const ImageGalleryNew = ({ images, addImages }) => {
             <GridDropZone
               id="items"
               boxesPerRow={5}
-              rowHeight={259.5}
-              style={{ height: 280 * Math.ceil(items.length / 4) }}
+              rowHeight={299.5}
+              style={{ height: 280 * Math.ceil(items.length / 10) }}
             >
               {items.map((item, index) => (
                 <GridItem
@@ -92,7 +92,7 @@ const ImageGalleryNew = ({ images, addImages }) => {
                     item.selected ? "selected-image" : ""
                   }`}
                 >
-                  <div className="image-container featured-image">
+                  <div className="image-container">
                     <input
                       type="checkbox"
                       id={`checkbox-${item.id}`}
@@ -100,31 +100,19 @@ const ImageGalleryNew = ({ images, addImages }) => {
                       onChange={() => handleCheckboxChange(item.id)}
                       className="checkbox"
                     />
-                    <label htmlFor={`checkbox-${item.id}`}>
-                      <img
-                        src={item.image}
-                        alt={`Image ${item.id}`}
-                        className={`img-label ${
-                          index === 0 ? "featured-image" : ""
-                        }`}
-                      />
-                    </label>
+
+                    <img
+                      src={item.image}
+                      alt={`Image ${item.id}`}
+                      className={`img-label ${
+                        index === 0 ? "featured-image" : ""
+                      }`}
+                    />
                   </div>
                 </GridItem>
               ))}
             </GridDropZone>
           </GridContextProvider>
-          {/* <div className="addImageContainer">
-            {addImages.map((addImage, index) => (
-              <div key={index} className="addImageItem">
-                <img
-                  src={addImage.image}
-                  alt={`Add Image ${index}`}
-                  className="addImage"
-                />
-              </div>
-            ))}
-          </div> */}
         </div>
       </div>
     </>
