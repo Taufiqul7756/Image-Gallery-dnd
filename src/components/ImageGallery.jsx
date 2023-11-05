@@ -81,8 +81,8 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
             <GridDropZone
               id="items"
               boxesPerRow={5}
-              rowHeight={299.5}
-              style={{ height: 280 * Math.ceil(items.length / 10) }}
+              rowHeight={259.5}
+              style={{ height: 280 * Math.ceil(items.length / 4) }}
             >
               {items.map((item, index) => (
                 <GridItem
@@ -93,21 +93,23 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
                   }`}
                 >
                   <div className="image-container">
-                    <input
-                      type="checkbox"
-                      id={`checkbox-${item.id}`}
-                      checked={item.selected}
-                      onChange={() => handleCheckboxChange(item.id)}
-                      className="checkbox"
-                    />
-
-                    <img
-                      src={item.image}
-                      alt={`Image ${item.id}`}
-                      className={`img-label ${
-                        index === 0 ? "featured-image" : ""
-                      }`}
-                    />
+                    <>
+                      <input
+                        type="checkbox"
+                        id={`checkbox-${item.id}`}
+                        checked={item.selected}
+                        onChange={() => handleCheckboxChange(item.id)}
+                        className="checkbox"
+                      />
+                      <img
+                        src={item.image}
+                        alt={`Image ${item.id}`}
+                        className="img-label"
+                        style={{
+                          pointerEvents: "none", // Make all images draggable except id: 12
+                        }}
+                      />
+                    </>
                   </div>
                 </GridItem>
               ))}
