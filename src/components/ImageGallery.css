@@ -96,9 +96,7 @@ body {
   opacity: 0.5;
 }
 .selected-image:hover img {
-  filter: brightness(
-    1
-  ); /* Reset the brightness to its normal value for selected images when hovered */
+  filter: brightness(1);
 }
 
 .featured-image {
