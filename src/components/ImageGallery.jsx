@@ -1,80 +1,46 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import "./ImageGallery.css";
 
-function ImageGallery({ images, addImages }) {
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [imageOrder, setImageOrder] = useState(
-    images.map((image, index) => `${image.id}`)
-  );
-  const [popupMessage, setPopupMessage] = useState(null);
+import {
+  GridContextProvider,
+  GridDropZone,
+  GridItem,
+  swap,
+} from "react-grid-dnd";
+import "./styles.css";
+
+const ImageGalleryNew = ({ images, addImages }) => {
+  const [items, setItems] = useState(images);
   const [showGalleryText, setShowGalleryText] = useState(true);
 
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const reorderedImages = Array.from(imageOrder);
-    const [reorderedItem] = reorderedImages.splice(result.source.index, 1);
-
-    // Insert the dragged item at the correct position based on the destination index
-    reorderedImages.splice(result.destination.index, 0, reorderedItem);
-
-    setImageOrder(reorderedImages);
-  };
-
-  const toggleImageSelection = (event, imageId) => {
-    const isChecked = event.target.checked;
-    console.log(`Image ${imageId} isChecked: ${isChecked}`);
-
-    setSelectedImages((prevSelectedImages) => {
-      if (isChecked) {
-        console.log(`Selecting Image ${imageId}`);
-        setShowGalleryText(false); // Hide the "Gallery" text
-        return [...prevSelectedImages, imageId];
-      } else {
-        console.log(`Deselecting Image ${imageId}`);
-        const updatedSelection = prevSelectedImages.filter(
-          (selectedImage) => selectedImage !== imageId
-        );
-        console.log(`Updated Selection:`, updatedSelection);
-        return updatedSelection;
+  const handleCheckboxChange = (itemId) => {
+    const updatedItems = items.map((item) => {
+      if (item.id === itemId) {
+        item.selected = !item.selected;
       }
+      return item;
     });
-  };
+    setItems(updatedItems);
 
-  const showPopup = (message) => {
-    setPopupMessage(message);
-
-    setTimeout(() => {
-      setPopupMessage(null);
-    }, 2000);
-    console.log("Popup message set:", message);
+    const anyImageSelected = updatedItems.some((item) => item.selected);
+    setShowGalleryText(!anyImageSelected);
+    console.log("Selected Image : ", anyImageSelected);
   };
 
   const deleteSelectedImages = () => {
-    if (selectedImages.length === 0) {
-      showPopup("Select at least one image");
-      return;
-    }
-
-    setImageOrder((prevImageOrder) => {
-      const deletedImageIds = prevImageOrder.filter((imageId) =>
-        selectedImages.includes(imageId)
-      );
-
-      console.log("Deleted Image IDs:", deletedImageIds);
-
-      const updatedOrder = prevImageOrder.filter(
-        (imageId) => !selectedImages.includes(imageId)
-      );
-      setSelectedImages([]);
-
-      const message = `${deletedImageIds.length} files deleted`;
-      showPopup(message);
-
-      return updatedOrder;
-    });
+    const updatedItems = items.filter((item) => !item.selected);
+    console.log(
+      "Deleted Images:",
+      items.filter((item) => item.selected)
+    );
+    console.log("Updated Image Order:", updatedItems);
+    setItems(updatedItems);
   };
+  function onChange(sourceId, sourceIndex, targetIndex) {
+    const nextState = swap(items, sourceIndex, targetIndex);
+    setItems(nextState);
+  }
+  const selectedCount = items.filter((item) => item.selected).length;
 
   return (
     <>
@@ -83,90 +49,71 @@ function ImageGallery({ images, addImages }) {
           {showGalleryText ? (
             <h2 className="gallery-text">Gallery</h2>
           ) : (
-            <div className="delete-text">
+            <div className="select-delete-text delete-text">
               <h3>
-                {" "}
                 <input
-                  className="checkbox"
                   type="checkbox"
-                  checked={selectedImages.length > 0}
+                  id="selectAllCheckbox"
+                  className="upper-checkbox"
+                  checked={selectedCount > 0}
                   onChange={() => {
-                    // Toggle the selection status of all images based on the checkbox
-                    const selectAll = selectedImages.length === 0;
-                    setSelectedImages(selectAll ? imageOrder : []);
+                    const selectAll = selectedCount === 0;
+                    const updatedItems = items.map((item) => {
+                      item.selected = selectAll;
+                      return item;
+                    });
+                    setItems(updatedItems);
+                    setShowGalleryText(!selectAll); // Hide "Gallery" if all images are selected
                   }}
                 />{" "}
-                {selectedImages.length} Files Selected
+                {selectedCount} File{selectedCount > 1 ? "s" : ""} Selected
               </h3>
               <h4 onClick={deleteSelectedImages}>Delete Files</h4>
             </div>
           )}
         </div>
-        <hr />
+        <hr className="hr" />
         <div className="lower-container">
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable type="ROW" droppableId="gallery">
-              {(provided) => (
-                <ul
-                  className="img-container"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
+          <GridContextProvider onChange={onChange}>
+            <GridDropZone
+              id="items"
+              boxesPerRow={5}
+              rowHeight={350}
+              style={{ height: 350 * Math.ceil(items.length / 4) }}
+            >
+              {items.map((item) => (
+                <GridItem
+                  key={item.id}
+                  alt={`Image ${item.id}`}
+                  className={`gridItem-image ${
+                    item.selected ? "selected-image" : ""
+                  }`}
                 >
-                  {imageOrder.map((imageId, index) => {
-                    const image = images.find(
-                      (img) => img.id === parseInt(imageId, 10)
-                    );
-                    const isChecked = selectedImages.includes(imageId);
-
-                    return (
-                      <Draggable
-                        key={imageId}
-                        draggableId={imageId.toString()}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <li
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className={index === 0 ? "first-image" : ""} // Add the class conditionally
-                          >
-                            <div className="image-container">
-                              <input
-                                type="checkbox"
-                                checked={isChecked}
-                                onChange={(event) =>
-                                  toggleImageSelection(event, imageId)
-                                }
-                              />
-                              <img
-                                src={image.image}
-                                alt={image.image}
-                                className={isChecked ? "selected" : ""}
-                              />
-                            </div>
-                          </li>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                  <img
-                    className="addImage"
-                    src={addImages[0].image}
-                    alt="Add "
-                  />
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
-
-          {/* popup code */}
-          {popupMessage && <div className="popup">{popupMessage}</div>}
+                  <div className="image-container">
+                    {/* Checkbox here */}
+                    <input
+                      type="checkbox"
+                      id={`checkbox-${item.id}`}
+                      checked={item.selected}
+                      onChange={() => handleCheckboxChange(item.id)}
+                      className="checkbox"
+                    />
+                    <label htmlFor={`checkbox-${item.id}`}>
+                      <img
+                        src={item.image}
+                        alt={`Image ${item.id}`}
+                        className="img-label"
+                      />
+                    </label>
+                  </div>
+                </GridItem>
+              ))}
+            </GridDropZone>
+          </GridContextProvider>
         </div>
       </div>
     </>
   );
-}
+};
 
-export default ImageGallery;
+export default ImageGalleryNew;

@@ -5,22 +5,30 @@ body {
 }
 
 .container {
-  /* padding: 10px; */
-  /* border: 1px solid black; */
+  padding: 10px;
   border-radius: 5px;
   background: #ffffff;
 }
-
-.selected {
-  opacity: 0.5;
-  filter: brightness(1) !important;
+.hr {
+  padding: 0 !important;
+  width: 100%;
 }
-
 .gallery-text {
   margin-left: 36px;
 }
 
-.upper-container .delete-text {
+.select-delete-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 36px;
+}
+/* .selected {
+  opacity: 0.5;
+  filter: brightness(1) !important;
+} */
+
+.upper-container .upper-text-container .delete-text {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,89 +39,16 @@ body {
   color: rgb(214, 36, 36);
   cursor: pointer;
 }
-/* .upper-container h2 {
-  cursor: pointer;
-} */
-
 .lower-container {
-  /* border: 1px solid black; */
-  /* box-shadow: 5px 5px; */
   margin: 20px;
   padding: 16px;
 }
 
-.img-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-  position: relative;
+.gridItem-image {
+  cursor: "-webkit-grab";
+  padding: 10px;
 }
 
-.image-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-}
-
-.addImage {
-  cursor: pointer;
-}
-
-/* Style the checkbox */
-.image-container input[type="checkbox"] {
-  position: absolute;
-  top: 5px; /* Adjust the top position as needed */
-  left: 5px; /* Adjust the left position as needed */
-  z-index: 1; /* Place it on top of the image */
-  transform: scale(1.5); /* Increase the size of the checkbox */
-  cursor: pointer; /* Add pointer cursor to the checkbox */
-}
-.checkbox {
-  transform: scale(1.5);
-}
-
-.img-container img {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.2s;
-  object-fit: cover;
-  border-radius: 5px;
-  border: 1px solid gray;
-}
-
-/* .img-container li {
-  padding-bottom: 10%;
-  position: relative;
-} */
-
-/* .img-container li:hover {
-  opacity: 0.4;
-} */
-.img-container img:hover {
-  filter: brightness(0.6);
-}
-
-/* Show the checkbox when input is checked */
-.image-container input[type="checkbox"]:checked {
-  display: block;
-}
-
-/* Hide the checkbox by default */
-.image-container input[type="checkbox"] {
-  display: none;
-}
-
-/* Show the checkbox when hovering over the image container */
-.image-container:hover input[type="checkbox"] {
-  display: block;
-}
-
-.first-image {
-  grid-column: span 2;
-  grid-row: span 2;
-}
 .popup {
   position: fixed;
   top: 25px;
@@ -125,6 +60,38 @@ body {
   z-index: 999;
   transition: opacity 0.3s;
   opacity: 1;
+}
+
+.checkbox-label {
+  position: relative;
+  display: inline-block;
+}
+
+.checkbox {
+  position: absolute;
+  top: 14px;
+  left: 12px;
+  z-index: 1;
+  transform: scale(1.5);
+}
+
+.upper-checkbox {
+  transform: scale(1.5);
+}
+
+.img-label {
+  max-width: 100%;
+  border: 1px solid black;
+}
+
+.image-container {
+  border-radius: 1px solid red;
+}
+.image-container img:hover {
+  filter: brightness(0.6);
+}
+.selected-image img {
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 900px) {
