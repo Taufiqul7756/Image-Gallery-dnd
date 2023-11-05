@@ -45,8 +45,9 @@ body {
 }
 
 .gridItem-image {
-  cursor: "-webkit-grab";
   padding: 10px;
+  cursor: -webkit-grab;
+  /* pointer-events: none; */
 }
 
 .popup {
@@ -81,17 +82,23 @@ body {
 
 .img-label {
   max-width: 100%;
-  border: 1px solid black;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .image-container {
-  border-radius: 1px solid red;
+  cursor: -webkit-grab;
 }
 .image-container img:hover {
   filter: brightness(0.6);
 }
 .selected-image img {
   opacity: 0.5;
+}
+
+.featured-image {
+  grid-row: span 2 !important;
+  grid-column: span 2 !important;
 }
 
 @media screen and (max-width: 900px) {
