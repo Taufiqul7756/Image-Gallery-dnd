@@ -95,6 +95,11 @@ body {
 .selected-image img {
   opacity: 0.5;
 }
+.selected-image:hover img {
+  filter: brightness(
+    1
+  ); /* Reset the brightness to its normal value for selected images when hovered */
+}
 
 .featured-image {
   grid-row: span 2 !important;
