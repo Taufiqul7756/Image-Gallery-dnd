@@ -15,6 +15,7 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
   const [showGalleryText, setShowGalleryText] = useState(true);
 
   // console.log("addImages", addImages);
+  console.log("images", images);
 
   const handleCheckboxChange = (itemId) => {
     const updatedItems = items.map((item) => {
@@ -90,20 +91,24 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
                   alt={`Image ${item.id}`}
                   className={`gridItem-image ${
                     item.selected ? "selected-image" : ""
-                  } ${item.id === 1 ? "featured-image" : ""}`}
+                  } ${item.id === 12 ? "featured-image" : ""}`}
                 >
                   <div className="image-container">
-                    <input
-                      type="checkbox"
-                      id={`checkbox-${item.id}`}
-                      checked={item.selected}
-                      onChange={() => handleCheckboxChange(item.id)}
-                      className="checkbox"
-                    />
+                    {item.id !== 12 ? ( // Check if the item is not the last image
+                      <input
+                        type="checkbox"
+                        id={`checkbox-${item.id}`}
+                        checked={item.selected}
+                        onChange={() => handleCheckboxChange(item.id)}
+                        className="checkbox"
+                      />
+                    ) : null}
                     <img
                       src={item.image}
                       alt={`Image ${item.id}`}
-                      className="img-label"
+                      className={`img-label${
+                        item.id === 12 ? " featured-image" : ""
+                      }`}
                     />
                   </div>
                 </GridItem>
