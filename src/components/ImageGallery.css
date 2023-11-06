@@ -23,11 +23,6 @@ body {
   align-items: center;
   margin-left: 36px;
 }
-/* .selected {
-  opacity: 0.5;
-  filter: brightness(1) !important;
-} */
-
 .upper-container .upper-text-container .delete-text {
   display: flex;
   justify-content: space-between;
@@ -38,6 +33,7 @@ body {
 .upper-container h4 {
   color: rgb(214, 36, 36);
   cursor: pointer;
+  margin-right: 47px;
 }
 .lower-container {
   margin: 20px;
@@ -78,12 +74,10 @@ body {
   transform: scale(1.5);
   display: none;
 }
-/* Show the checkbox for selected images */
 .selected-image .checkbox {
   display: block;
 }
 
-/* Show the checkbox on hover for unselected images */
 .image-container:hover .checkbox {
   display: block;
 }
@@ -125,24 +119,3 @@ body {
 .selected-image:hover img {
   filter: brightness(1);
 }
-
-/* @media screen and (min-width: 900px) {
-  .lower-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .lower-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .lower-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-} */

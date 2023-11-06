@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
-
 import {
   GridContextProvider,
   GridDropZone,
@@ -9,9 +7,8 @@ import {
 } from "react-grid-dnd";
 import "./ImageGallery.css";
 
-const ImageGalleryNew = ({ images, addImages, featured }) => {
+const ImageGallery = ({ images, addImages, featured }) => {
   const [items, setItems] = useState(images);
-
   const [showGalleryText, setShowGalleryText] = useState(true);
   const [boxesPerRow, setBoxesPerRow] = useState(5);
   const [rowHeight, setRowHeight] = useState(259.5);
@@ -104,9 +101,6 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
           <GridContextProvider onChange={onChange}>
             <GridDropZone
               id="items"
-              // boxesPerRow={5}
-              // rowHeight={259.5}
-              // style={{ height: 280 * Math.ceil(items.length / 4) }}
               boxesPerRow={boxesPerRow}
               rowHeight={rowHeight}
               style={{
@@ -122,7 +116,7 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
                   } ${item.id === 12 ? "featured-image" : ""}`}
                 >
                   <div className="image-container">
-                    {item.id !== 12 ? ( // Check if the item is not the last image
+                    {item.id !== 12 ? (
                       <input
                         type="checkbox"
                         id={`checkbox-${item.id}`}
@@ -149,4 +143,4 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
   );
 };
 
-export default ImageGalleryNew;
+export default ImageGallery;
