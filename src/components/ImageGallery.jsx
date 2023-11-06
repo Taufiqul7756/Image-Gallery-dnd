@@ -90,26 +90,21 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
                   alt={`Image ${item.id}`}
                   className={`gridItem-image ${
                     item.selected ? "selected-image" : ""
-                  }`}
+                  } ${item.id === 1 ? "featured-image" : ""}`}
                 >
                   <div className="image-container">
-                    <>
-                      <input
-                        type="checkbox"
-                        id={`checkbox-${item.id}`}
-                        checked={item.selected}
-                        onChange={() => handleCheckboxChange(item.id)}
-                        className="checkbox"
-                      />
-                      <img
-                        src={item.image}
-                        alt={`Image ${item.id}`}
-                        className="img-label"
-                        style={{
-                          pointerEvents: "none", // Make all images draggable except id: 12
-                        }}
-                      />
-                    </>
+                    <input
+                      type="checkbox"
+                      id={`checkbox-${item.id}`}
+                      checked={item.selected}
+                      onChange={() => handleCheckboxChange(item.id)}
+                      className="checkbox"
+                    />
+                    <img
+                      src={item.image}
+                      alt={`Image ${item.id}`}
+                      className="img-label"
+                    />
                   </div>
                 </GridItem>
               ))}
