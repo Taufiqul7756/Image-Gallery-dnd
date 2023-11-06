@@ -103,6 +103,18 @@ body {
   filter: brightness(0.6);
 }
 
+.gridItem-image.selected-image img:hover {
+  filter: brightness(1);
+}
+
+.gridItem-image:not(.selected-image) img {
+  transition: filter 0.3s;
+}
+
+.gridItem-image:not(.selected-image):hover img {
+  filter: brightness(0.6);
+}
+
 .image-container {
   cursor: -webkit-grab;
 }
