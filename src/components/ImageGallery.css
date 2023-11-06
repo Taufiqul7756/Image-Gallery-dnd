@@ -126,13 +126,6 @@ body {
   filter: brightness(1);
 }
 
-.featured-image {
-  grid-row: span 2 !important;
-  grid-column: span 2 !important;
-  max-width: 100%;
-  height: auto;
-}
-
 /* @media screen and (min-width: 900px) {
   .lower-container {
     display: grid;

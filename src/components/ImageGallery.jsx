@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   GridContextProvider,
@@ -13,6 +13,29 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
   const [items, setItems] = useState(images);
 
   const [showGalleryText, setShowGalleryText] = useState(true);
+  const [boxesPerRow, setBoxesPerRow] = useState(5);
+  const [rowHeight, setRowHeight] = useState(259.5);
+
+  const updateGridSettings = () => {
+    if (window.innerWidth <= 600) {
+      setBoxesPerRow(2);
+      setRowHeight(150);
+    } else if (window.innerWidth <= 900) {
+      setBoxesPerRow(3);
+      setRowHeight(200);
+    } else {
+      setBoxesPerRow(5);
+      setRowHeight(259.5);
+    }
+  };
+
+  useEffect(() => {
+    updateGridSettings();
+    window.addEventListener("resize", updateGridSettings);
+    return () => {
+      window.removeEventListener("resize", updateGridSettings);
+    };
+  }, []);
 
   // console.log("addImages", addImages);
   console.log("images", images);
@@ -81,9 +104,14 @@ const ImageGalleryNew = ({ images, addImages, featured }) => {
           <GridContextProvider onChange={onChange}>
             <GridDropZone
               id="items"
-              boxesPerRow={5}
-              rowHeight={259.5}
-              style={{ height: 280 * Math.ceil(items.length / 4) }}
+              // boxesPerRow={5}
+              // rowHeight={259.5}
+              // style={{ height: 280 * Math.ceil(items.length / 4) }}
+              boxesPerRow={boxesPerRow}
+              rowHeight={rowHeight}
+              style={{
+                height: rowHeight * Math.ceil(items.length / boxesPerRow),
+              }}
             >
               {items.map((item, index) => (
                 <GridItem
