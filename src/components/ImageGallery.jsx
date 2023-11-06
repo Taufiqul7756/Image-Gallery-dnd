@@ -59,6 +59,9 @@ const ImageGallery = ({ images, addImages, featured }) => {
     );
     console.log("Updated Image Order:", updatedItems);
     setItems(updatedItems);
+
+    const anyImageSelected = updatedItems.some((item) => item.selected);
+    setShowGalleryText(!anyImageSelected);
   };
   function onChange(sourceId, sourceIndex, targetIndex) {
     const nextState = swap(items, sourceIndex, targetIndex);
