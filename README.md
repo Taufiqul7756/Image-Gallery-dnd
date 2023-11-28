@@ -40,10 +40,6 @@ This is an image gallery project that allows you to create a gallery with variou
 
 - The specific requirement of making the first image larger than the others may not be achieved due to package limitations.
 
-## Acknowledgments
-
-- Thanks to [Ollyo](https://ollyo.com/) for the task and opportunity to work on this project.
-
 ## Contact
 
 If you have any questions or need further assistance, please feel free to contact me at [taufiqulislam.official@gmail.com].
