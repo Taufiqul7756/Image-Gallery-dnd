@@ -16,7 +16,7 @@ This is an image gallery project that allows you to create a gallery with variou
 
 ## Technologies Used
 
-- React
+- React JS
 - react-beautiful-dnd (for the first demo)
 - react-grid-dnd (for the second demo)
 
