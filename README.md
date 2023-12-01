@@ -12,7 +12,7 @@ This is an image gallery project that allows you to create a gallery with variou
 - **Drag and Drop**: Easily reposition images by dragging and dropping them anywhere in the gallery.
 - **Featured Image**: The first image in the gallery is displayed larger than the others.
 - **Image Selection**: Select and delete images by using checkboxes.
-- **Responsive Design**: The gallery is designed to work on various screen sizes and devices..
+- **Responsive Design**: The gallery is designed to work on various screen sizes and devices.
 
 ## Technologies Used
 
